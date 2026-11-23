@@ -1,6 +1,6 @@
 // Portal Link Google SMKN 3 Ketapang — GitHub JSON database via Cloudflare Worker
 // Setelah Worker dipasang, isi URL di bawah dengan URL Worker Anda.
-const API_BASE = "PASTE_CLOUDFLARE_WORKER_URL_HERE";
+const API_BASE = "https://linksoal-smkn3-ketapang.febryrudiatma-ktp19.workers.dev";
 const $=id=>document.getElementById(id);
 let links=[], schedules=[], adminToken=sessionStorage.getItem('smkn3_admin_token')||'';
 let isAdmin=!!adminToken;
