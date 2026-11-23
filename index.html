@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#172554">
+<title>Portal Link Google</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand school-brand">
+      <div class="brand-mark school-logo" id="schoolLogoPreview">SMK</div>
+      <div class="brand-copy"><b>SMKN 3 Ketapang</b><small>PORTAL LINK & JADWAL</small></div>
+    </div>
+    <button class="logo-upload-btn" id="changeLogoBtn" type="button">＋ Pasang Logo Sekolah</button>
+    <input type="file" id="logoFileInput" accept="image/png,image/jpeg,image/webp,image/svg+xml" hidden>
+    <div class="nav-label">MENU UTAMA</div>
+    <button class="nav-item active" data-page="home"><span>⌂</span> Dashboard</button>
+    <button class="nav-item" data-page="links"><span>▣</span> Link Soal Google Form</button>
+    <button class="nav-item" data-page="schedule"><span>▦</span> Jadwal</button>
+    <div class="sidebar-bottom"><div class="help-card"><div class="help-icon">✦</div><b>Semua tautan dalam satu tempat</b><p>Kelola link soal dan jadwal dengan lebih mudah.</p></div><div class="copyright">Portal Link Google <span>•</span> v1.0</div></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><button class="menu-toggle" id="menuToggle">☰</button><div><div class="eyebrow">PORTAL INFORMASI</div><h1 id="pageTitle">Dashboard</h1></div><div class="top-actions"><span class="today" id="today"></span><button class="admin-login-btn" id="adminLoginBtn">Login Admin</button><div class="avatar">A</div></div></header>
+    <section class="page active" id="page-home">
+      <div class="welcome"><div><span class="pill">● PORTAL RESMI SEKOLAH</span><h2>SMKN 3 Ketapang</h2><p>Portal akses soal Google Form dan informasi jadwal kegiatan sekolah dalam satu tempat.</p></div><div class="welcome-art"><div class="art-circle">SMK</div><div class="art-dot"></div></div></div>
+      <div class="stats">
+        <div class="stat-card"><div class="stat-top"><span>Total Link Soal</span><span class="stat-icon purple">▣</span></div><strong id="statLinks">0</strong><small>Tautan Google Form tersimpan</small></div>
+        <div class="stat-card"><div class="stat-top"><span>Jadwal Tersimpan</span><span class="stat-icon blue">▦</span></div><strong id="statSchedules">0</strong><small>Agenda yang telah dibuat</small></div>
+        <div class="stat-card"><div class="stat-top"><span>Agenda Mendatang</span><span class="stat-icon orange">◷</span></div><strong id="statUpcoming">0</strong><small>Jadwal hari ini dan berikutnya</small></div>
+      </div>
+      <div class="section-heading"><div><h3>Akses cepat</h3><p>Pilih menu yang ingin dibuka.</p></div></div>
+      <div class="quick-grid">
+        <button class="quick-card" data-goto="links"><div class="quick-icon purple">▣</div><div><b>Link Soal Google Form</b><p>Lihat dan buka tautan soal</p></div><span class="arrow">↗</span></button>
+        <button class="quick-card" data-goto="schedule"><div class="quick-icon blue">▦</div><div><b>Jadwal Kegiatan</b><p>Lihat agenda dan waktu pelaksanaan</p></div><span class="arrow">↗</span></button>
+      </div>
+      <div class="section-heading recent-heading"><div><h3>Link soal terbaru</h3><p>Daftar tautan yang baru ditambahkan.</p></div><button class="text-button" data-goto="links">Lihat semua →</button></div>
+      <div class="panel"><div id="recentLinks" class="recent-list"></div></div>
+    </section>
+    <section class="page" id="page-links">
+      <div class="page-intro"><div><h2>Link Soal Google Form</h2><p>Simpan, kelola, dan buka tautan soal dari satu halaman.</p></div><button class="primary-btn admin-only" id="addLinkBtn" hidden>＋ Tambah Link</button></div>
+      <div class="toolbar"><div class="searchbox"><span>⌕</span><input id="linkSearch" placeholder="Cari nama soal atau mata pelajaran..."></div><span class="result-count" id="linkCount">0 tautan</span></div>
+      <div id="linksList" class="link-grid"></div>
+    </section>
+    <section class="page" id="page-schedule">
+      <div class="page-intro"><div><h2>Jadwal Kegiatan</h2><p>Atur jadwal ujian, asesmen, atau kegiatan lainnya.</p></div><button class="primary-btn admin-only" id="addScheduleBtn" hidden>＋ Tambah Jadwal</button></div>
+      <div class="toolbar"><div class="searchbox"><span>⌕</span><input id="scheduleSearch" placeholder="Cari kegiatan..."></div><span class="result-count" id="scheduleCount">0 jadwal</span></div>
+      <div id="scheduleList" class="schedule-list"></div>
+    </section>
+    <footer>© <span id="year"></span> SMKN 3 Ketapang • Portal Link Google <span>•</span> Dibuat untuk memudahkan akses informasi</footer>
+  </main>
+</div>
+<div class="overlay" id="overlay"></div>
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <div class="modal-head"><div><span class="eyebrow">FORMULIR</span><h3 id="modalTitle">Tambah Link Soal</h3></div><button class="close-btn" id="closeModal">×</button></div>
+    <form id="dataForm">
+      <input type="hidden" id="itemId"><input type="hidden" id="itemType">
+      <div class="field" id="nameField"><label>Nama soal / kegiatan *</label><input id="nameInput" required placeholder="Contoh: Ujian Informatika Kelas X"></div>
+      <div class="field" id="subjectField"><label>Mata pelajaran / kategori</label><input id="subjectInput" placeholder="Contoh: Informatika"></div>
+      <div class="field" id="urlField"><label>Link Google Form *</label><input id="urlInput" type="url" placeholder="https://forms.google.com/..." required></div>
+      <div class="field" id="dateField"><label>Tanggal *</label><input id="dateInput" type="date"></div>
+      <div class="field" id="timeField"><label>Waktu</label><input id="timeInput" type="time"></div>
+      <div class="field" id="locationField"><label>Keterangan / lokasi</label><input id="locationInput" placeholder="Contoh: Lab Komputer / Sesi 1"></div>
+      <div class="field"><label>Deskripsi (opsional)</label><textarea id="descriptionInput" rows="3" placeholder="Tambahkan informasi singkat..."></textarea></div>
+      <div class="modal-actions"><button type="button" class="secondary-btn" id="cancelModal">Batal</button><button type="submit" class="primary-btn">Simpan Data</button></div>
+    </form>
+  </div>
+</div>
+<div class="modal-backdrop" id="loginBackdrop">
+  <div class="modal login-modal">
+    <div class="modal-head"><div><span class="eyebrow">AREA TERBATAS</span><h3>Login Administrator</h3></div><button class="close-btn" id="closeLogin">×</button></div>
+    <form id="loginForm">
+      <div class="field"><label>Password admin *</label><input id="adminPassword" type="password" required autocomplete="current-password" placeholder="Masukkan password admin"></div>
+      <p class="login-note">Hanya administrator sekolah yang dapat menambah, mengubah, dan menghapus data.</p>
+      <div class="modal-actions"><button type="button" class="secondary-btn" id="cancelLogin">Batal</button><button type="submit" class="primary-btn">Masuk</button></div>
+    </form>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
